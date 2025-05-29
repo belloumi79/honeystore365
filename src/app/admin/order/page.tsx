@@ -6,6 +6,7 @@ import { useSession } from '@/context/SessionProvider'; // Assuming this path
 import { Database } from '@/types/supabase';
 import { deleteOrder } from '@/actions/checkoutActions';
 import OrderActions from '@/components/OrderActions'; // Import the new component
+import { DataTable } from '@/components/data-table';
 
 type Order = Database['public']['Tables']['orders']['Row'] & {
   customers: { first_name: string; last_name: string } | null;
@@ -14,10 +15,6 @@ type Order = Database['public']['Tables']['orders']['Row'] & {
 
 type CustomerInfo = Order['customers'];
 type AddressWithPhone = Order['shipping_address'];
-'use client';
-import { DataTable } from '@/components/data-table';
-
-
 
 export default function OrderPage() {
   const [loading, setLoading] = useState(true);
