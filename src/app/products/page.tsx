@@ -1,6 +1,6 @@
 
 
-import { createClientServer } from "@/lib/supabaseClientServer";
+import { createClientServerReadOnly } from "@/lib/supabaseServerReadOnly";
 // Image is now used within ProductCardClient
 import ProductCardClient from "@/components/ProductCardClient"; // Import the client component
 
@@ -14,7 +14,7 @@ interface Product {
 }
 
 export default async function ProductsPage() {
-  const supabase = await createClientServer(); // Await the promise
+  const supabase = await createClientServerReadOnly(); // Read-only in RSC
   const { data: products, error } = await supabase
     .from("products")
     .select("id, name, description, price, image_url");

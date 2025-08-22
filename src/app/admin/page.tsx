@@ -1,6 +1,6 @@
 // src/app/admin/page.tsx
 import { cookies } from 'next/headers';
-import { createClientServer } from '@/lib/supabaseClientServer';
+import { createClientServerReadOnly } from '@/lib/supabaseServerReadOnly';
 import { Database } from '@/types/supabase'; // Adjusted to use absolute path alias
 
 // --- Icônes pour les cartes (optionnel, exemple avec lucide-react) ---
@@ -101,7 +101,7 @@ function RecentOrdersTable({ orders }: { orders: Order[] }) {
 
 // --- Page Principale du Dashboard ---
 export default async function AdminPage() {
-  const supabase = await createClientServer(); // Use standard server client - Added await
+  const supabase = await createClientServerReadOnly(); // Read-only in RSC to avoid cookie mutations
 
 
   // --- Récupération des données ---

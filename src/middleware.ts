@@ -8,8 +8,8 @@ export async function middleware(request: NextRequest) {
                 request.cookies.get('sb-llsifflkfjogjagmbmpi-auth-token.0')?.value
 
   const isLoggedIn = !!token
-  const isOnAuthPage = request.nextUrl.pathname === '/login' || 
-                      request.nextUrl.pathname === '/register'
+  const isOnAuthPage = request.nextUrl.pathname === '/auth/login' || 
+                      request.nextUrl.pathname === '/auth/register'
   const isOnProtectedPage = request.nextUrl.pathname.startsWith('/dashboard') || 
                            request.nextUrl.pathname.startsWith('/admin')
 

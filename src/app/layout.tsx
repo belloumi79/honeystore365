@@ -6,7 +6,7 @@ import {Toaster} from '@/components/ui/toaster';
 import { ChatbotPopup } from '@/components/chatbot-popup';
 import { DebugSession } from '@/components/debug-session';
 import { DebugCookies } from '@/components/debug-cookies';
-import { createClientServer } from '@/lib/supabaseClientServer'; // Import server client with service role
+import { createClientServerReadOnly } from '@/lib/supabaseServerReadOnly';
 import { SessionProvider } from '@/context/SessionProvider'; // Import SessionProvider
 
 export const metadata: Metadata = {
@@ -35,14 +35,9 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   // Fetch and validate session on the server
-  const supabase = await createClientServer();
+  const supabase = await createClientServerReadOnly();
   const { data: { user } } = await supabase.auth.getUser(); // Validate user first
-  let session = null;
-  if (user) {
-    // If user is validated, get the full session object
-    const { data: { session: sessionData } } = await supabase.auth.getSession();
-    session = sessionData;
-  }
+  const session = null; // Avoid modifying cookies in RSC; refresh via Server Actions if needed
   // Note: error handling might be needed
 
   return (

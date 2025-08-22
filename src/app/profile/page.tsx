@@ -1,4 +1,4 @@
-import { createClientServer } from '@/lib/supabaseClientServer';
+import { createClientServerReadOnly } from '@/lib/supabaseServerReadOnly';
 import { redirect } from 'next/navigation';
 // Image, Button, ShoppingCart will be used in ProductCardClient
 import ProductCardClient from '@/components/ProductCardClient'; // Import the new client component
@@ -33,7 +33,7 @@ interface Customer {
 import ProfileForm from '@/components/ProfileForm'; // Import the new form component
 
 export default async function ProfilePage() {
-  const supabase = await createClientServer();
+  const supabase = await createClientServerReadOnly();
 
   const { data: { user }, error: userError } = await supabase.auth.getUser();
 
